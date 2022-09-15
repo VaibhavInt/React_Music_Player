@@ -1,7 +1,7 @@
 import { getAuth } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { Home, Login } from "./components";
+import { Home, Login, Dashboard } from "./components";
 import { app } from "./config/firebase.config";
 import { AnimatePresence } from "framer-motion";
 import { validateUser } from "./api";
@@ -48,6 +48,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login setAuth={setAuth} />} />
           <Route path="/*" element={<Home />} />
+          <Route path="/dashboard/*" element={<Dashboard />} />
         </Routes>
       </div>
     </AnimatePresence>
