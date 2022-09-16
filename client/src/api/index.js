@@ -50,3 +50,24 @@ export const getAllSongs = async () => {
     console.log(error);
   }
 };
+
+export const changingUserRole = async (userId, role) => {
+  try {
+    const res = await axios.put(`${baseURL}api/users/updateRole/${userId}`, {
+      data: { role: role },
+    });
+
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const removeUser = async (userId) => {
+  try {
+    const res = await axios.delete(`${baseURL}api/users/deleteUser/${userId}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

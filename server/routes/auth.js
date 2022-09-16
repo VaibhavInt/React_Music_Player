@@ -34,7 +34,7 @@ const newUserData = async (decodeValue, req, res) => {
     imageURL: decodeValue.picture,
     user_id: decodeValue.user_id,
     email_verified: decodeValue.email_verified,
-    role: "member",
+    role: "Member",
     auth_time: decodeValue.auth_time,
   });
 
@@ -78,6 +78,29 @@ router.get("/getUsers", async (req, res) => {
     res.status(200).send({ success: true, data: cursor });
   } else {
     res.status(400).send({ success: false, message: "No Data Found" });
+  }
+});
+
+router.put("/updateRole/:userId", async (req, res) => {
+  const filter = { _id: req.params.userId };
+  const role = req.body.data.role;
+
+  try {
+    const result = await user.findOneAndUpdate(filter, { role: role });
+    res.status(200).send({ success: true, user: result });
+  } catch (error) {
+    res.status(400).send({ success: false, message: error });
+  }
+});
+
+router.delete("/deleteUser/:userId", async (req, res) => {
+  const filter = { _id: req.params.userId };
+  const result = await user.deleteOne(filter);
+
+  if (result.deletedCount === 1) {
+    res.status(200).send({ success: true, message: "User Removed" });
+  } else {
+    res.status(500).send({ success: false, message: "User Not Found" });
   }
 });
 
