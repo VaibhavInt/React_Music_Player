@@ -10,6 +10,7 @@ import {
   DashboardArtists,
   DashboardAlbums,
   DashboardNewSong,
+  Alert,
 } from "./index";
 
 const Dashboard = () => {
@@ -69,6 +70,8 @@ const Dashboard = () => {
           <Route path="/newSong" element={<DashboardNewSong />} />
         </Routes>
       </div>
+
+      <Alert />
     </div>
   );
 };
