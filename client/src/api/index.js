@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import axios from "axios";
 
 const baseURL = "http://localhost:4000/";
@@ -67,6 +68,15 @@ export const removeUser = async (userId) => {
   try {
     const res = await axios.delete(`${baseURL}api/users/deleteUser/${userId}`);
     return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const saveNewSong = async (data) => {
+  try {
+    const res = axios.post(`${baseURL}api/songs/save`, { ...data });
+    return (await res).data.song;
   } catch (error) {
     console.log(error);
   }
