@@ -9,6 +9,8 @@ export const actionType = {
   SET_ARTIST_FILTER: "SET_ARTIST_FILTER",
   SET_LANGUAGE_FILTER: "SET_LANGUAGE_FILTER",
   SET_ALBUM_FILTER: "SET_ALBUM_FILTER",
+
+  SET_ALERT_TYPE: "SET_ALERT_TYPE",
 };
 
 const reducer = (state, action) => {
@@ -71,6 +73,11 @@ const reducer = (state, action) => {
         albumFilter: action.albumFilter,
       };
 
+    case actionType.SET_ALERT_TYPE:
+      return {
+        ...state,
+        alertType: action.alertType,
+      };
     default:
       return state;
   }

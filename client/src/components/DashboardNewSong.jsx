@@ -87,6 +87,16 @@ const DashboardNewSong = () => {
       setIsAudioLoading(true);
       // setIsArtistLoading(true);
       // setIsAlbumLoading(true);
+      // dispatch({
+      //   type: actionType.SET_ALERT_TYPE,
+      //   alertType: "danger",
+      // });
+      // setInterval(() => {
+      //   dispatch({
+      //     type: actionType.SET_ALERT_TYPE,
+      //     alertType: null,
+      //   });
+      // }, 5000);
     }
     const deleteRef = ref(storage, url);
     deleteObject(deleteRef).then(() => {
@@ -100,6 +110,17 @@ const DashboardNewSong = () => {
 
       // setAlbumImageCover(null);
       // setIsAlbumLoading(false);
+
+      // dispatch({
+      //   type: actionType.SET_ALERT_TYPE,
+      //   alertType: "success",
+      // });
+      // setInterval(() => {
+      //   dispatch({
+      //     type: actionType.SET_ALERT_TYPE,
+      //     alertType: null,
+      //   });
+      // }, 5000);
     });
   };
 
@@ -481,6 +502,7 @@ export const FileUploader = ({
   isLoading,
   isImage,
 }) => {
+  const [{ alertType }, dispatch] = useStateValue();
   const uploadFile = (e) => {
     isLoading(true);
     const uploadedFile = e.target.files[0];
@@ -498,12 +520,32 @@ export const FileUploader = ({
       },
       (error) => {
         console.log(error);
+        // dispatch({
+        //   type: actionType.SET_ALERT_TYPE,
+        //   alertType: "danger",
+        // });
+        // setInterval(() => {
+        //   dispatch({
+        //     type: actionType.SET_ALERT_TYPE,
+        //     alertType: null,
+        //   });
+        // }, 5000);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           updateState(downloadURL);
           isLoading(false);
         });
+        // dispatch({
+        //   type: actionType.SET_ALERT_TYPE,
+        //   alertType: "success",
+        // });
+        // setInterval(() => {
+        //   dispatch({
+        //     type: actionType.SET_ALERT_TYPE,
+        //     alertType: null,
+        //   });
+        // }, 5000);
       }
     );
   };
