@@ -16,7 +16,6 @@ import { useStateValue } from "../context/StateProvider";
 
 const Dashboard = () => {
   const [{ alertType }, dispatch] = useStateValue();
-  console.log("alertType", alertType);
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center bg-primary ">
       <Header />
