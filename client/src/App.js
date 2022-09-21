@@ -1,7 +1,7 @@
 import { getAuth } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { Home, Login, Dashboard, MusicPlayer } from "./components";
+import { Home, Login, Dashboard, MusicPlayer, UserProfile } from "./components";
 import { app } from "./config/firebase.config";
 import { AnimatePresence, motion } from "framer-motion";
 import { validateUser } from "./api";
@@ -49,6 +49,7 @@ const App = () => {
           <Route path="/login" element={<Login setAuth={setAuth} />} />
           <Route path="/*" element={<Home />} />
           <Route path="/dashboard/*" element={<Dashboard />} />
+          <Route path="/userProfile" element={<UserProfile />} />
         </Routes>
 
         {isSongPlaying && (

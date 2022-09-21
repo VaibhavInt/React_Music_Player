@@ -13,6 +13,8 @@ export const actionType = {
   SET_ALERT_TYPE: "SET_ALERT_TYPE",
   SET_ISSONG_PLAYING: "SET_ISSONG_PLAYING",
   SET_SONG_INDEX: "SET_SONG_INDEX",
+  SET_SEARCH_TERM: "SET_SEARCH_TERM",
+  SET_MINI_PLAYER: "SET_MINI_PLAYER",
 };
 
 const reducer = (state, action) => {
@@ -91,6 +93,18 @@ const reducer = (state, action) => {
       return {
         ...state,
         songIndex: action.songIndex,
+      };
+
+    case actionType.SET_SEARCH_TERM:
+      return {
+        ...state,
+        searchTerm: action.searchTerm,
+      };
+
+    case actionType.SET_MINI_PLAYER:
+      return {
+        ...state,
+        miniPlayer: action.miniPlayer,
       };
 
     default:

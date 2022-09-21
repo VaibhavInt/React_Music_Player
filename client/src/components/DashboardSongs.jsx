@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { IoAdd, IoPause, IoPlay, IoTrash } from "react-icons/io5";
+import { IoAdd } from "react-icons/io5";
 import { AiOutlineClear } from "react-icons/ai";
 import { useState } from "react";
 import { useStateValue } from "../context/StateProvider";
@@ -8,10 +8,12 @@ import { useEffect } from "react";
 import { getAllSongs } from "../api";
 import { actionType } from "../context/reducer";
 import { SongCard } from "./index";
+import { motion } from "framer-motion";
 
 const DashboardSongs = () => {
   const [songFilter, setSongFilter] = useState("");
   const [isFocus, setIsFocus] = useState(false);
+  const [filteredSongs, setFilteredSongs] = useState(null);
   const [{ allSongs }, dispatch] = useStateValue();
 
   useEffect(() => {
@@ -24,6 +26,20 @@ const DashboardSongs = () => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (songFilter.length > 0) {
+      const filtered = allSongs.filter(
+        (data) =>
+          data.artist.toLowerCase().includes(songFilter) ||
+          data.language.toLowerCase().includes(songFilter) ||
+          data.name.toLowerCase().includes(songFilter)
+      );
+      setFilteredSongs(filtered);
+    } else {
+      setFilteredSongs(null);
+    }
+  }, [songFilter]);
 
   return (
     <div className="w-full p-4 flex items-center justify-center flex-col">
@@ -49,23 +65,33 @@ const DashboardSongs = () => {
           onFocus={() => setIsFocus(true)}
         />
 
-        <i>
-          <AiOutlineClear className="text-3xl text-textColor cursor-pointer" />
-        </i>
+        {songFilter && (
+          <motion.i
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            whileTap={{ scale: 0.75 }}
+            onClick={() => {
+              setSongFilter("");
+              setFilteredSongs(null);
+            }}
+          >
+            <AiOutlineClear className="text-3xl text-textColor cursor-pointer" />
+          </motion.i>
+        )}
       </div>
 
       {/* Main Container */}
       <div className="relative w-full my-4 p-4 border border-gray-300 rounded-md">
-        {/* The Count */}
-        <p className="text-xl font-bold">
-          <span className="text-base font-semibold text-textColor">
-            Count :{" "}
-          </span>
-          {allSongs?.length}
-        </p>
+        <div className="absolute top-4 left-4">
+          <p className="text-xl font-bold">
+            <span className="text-sm font-semibold text-textColor">
+              Count :{" "}
+            </span>
+            {filteredSongs ? filteredSongs?.length : allSongs?.length}
+          </p>
+        </div>
 
-        {/* song container component called */}
-        <SongContainer data={allSongs} />
+        <SongContainer data={filteredSongs ? filteredSongs : allSongs} />
       </div>
     </div>
   );
