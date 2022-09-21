@@ -6,11 +6,46 @@ import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { getAllSongs } from "../api";
 import { actionType } from "../context/reducer";
-import { IoMusicalNote } from "react-icons/io5";
+import { IoClose, IoMusicalNote } from "react-icons/io5";
 
 const MusicPlayer = () => {
   const [{ allSongs, songIndex, isSongPlaying }, dispatch] = useStateValue();
-  const [isPlayList, setIsPlayList] = useState(true);
+  const [isPlayList, setIsPlayList] = useState(false);
+
+  const nextTrack = () => {
+    if (songIndex === allSongs.length - 1) {
+      dispatch({
+        type: actionType.SET_SONG_INDEX,
+        songIndex: 0,
+      });
+    } else {
+      dispatch({
+        type: actionType.SET_SONG_INDEX,
+        songIndex: songIndex + 1,
+      });
+    }
+  };
+  const previousTrack = () => {
+    if (songIndex === 0) {
+      dispatch({
+        type: actionType.SET_SONG_INDEX,
+        songIndex: 0,
+      });
+    } else {
+      dispatch({
+        type: actionType.SET_SONG_INDEX,
+        songIndex: songIndex - 1,
+      });
+    }
+  };
+
+  const closePlayer = () => {
+    dispatch({
+      type: actionType.SET_ISSONG_PLAYING,
+      isSongPlaying: false,
+    });
+  };
+
   return (
     <div className="w-full flex items-center gap-3 ">
       <div className={`w-full flex items-center gap-3 p-4 relative`}>
@@ -37,7 +72,10 @@ const MusicPlayer = () => {
             </span>
           </p>
 
-          <motion.i whileTap={{ scale: 0.8 }}>
+          <motion.i
+            whileTap={{ scale: 0.8 }}
+            onClick={() => setIsPlayList(!isPlayList)}
+          >
             <RiPlayListFill className="text-textColor hover:text-headingColor text-3xl cursor-pointer" />
           </motion.i>
         </div>
@@ -48,12 +86,14 @@ const MusicPlayer = () => {
             onPlay={() => console.log("is Playing")}
             autoPlay={false}
             showSkipControls={true}
-            // onClickNext={nextTrack}
-            // onClickPrevious={previousTrack}
+            onClickNext={nextTrack}
+            onClickPrevious={previousTrack}
           />
         </div>
 
         {isPlayList && <PlayListCard />}
+
+        <IoClose onClick={closePlayer} />
       </div>
     </div>
   );
@@ -73,7 +113,7 @@ export const PlayListCard = () => {
     }
   }, []);
 
-  const setCurrentPlaySong = (newSongIndex) => {
+  const setCurrentPlaySong = (index) => {
     if (!isSongPlaying) {
       dispatch({
         type: actionType.SET_ISSONG_PLAYING,
@@ -81,10 +121,10 @@ export const PlayListCard = () => {
       });
     }
 
-    if (songIndex !== newSongIndex) {
+    if (songIndex !== index) {
       dispatch({
         type: actionType.SET_SONG_INDEX,
-        songIndex: newSongIndex,
+        songIndex: index,
       });
     }
   };
