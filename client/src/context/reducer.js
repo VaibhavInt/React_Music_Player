@@ -10,7 +10,6 @@ export const actionType = {
   SET_LANGUAGE_FILTER: "SET_LANGUAGE_FILTER",
   SET_ALBUM_FILTER: "SET_ALBUM_FILTER",
 
-  SET_ALERT_TYPE: "SET_ALERT_TYPE",
   SET_ISSONG_PLAYING: "SET_ISSONG_PLAYING",
   SET_SONG_INDEX: "SET_SONG_INDEX",
   SET_SEARCH_TERM: "SET_SEARCH_TERM",
@@ -75,12 +74,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         albumFilter: action.albumFilter,
-      };
-
-    case actionType.SET_ALERT_TYPE:
-      return {
-        ...state,
-        alertType: action.alertType,
       };
 
     case actionType.SET_ISSONG_PLAYING:

@@ -13,12 +13,15 @@ import {
   Alert,
 } from "./index";
 import { useStateValue } from "../context/StateProvider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Dashboard = () => {
   const [{ alertType }, dispatch] = useStateValue();
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center bg-primary ">
       <Header />
+      <ToastContainer />
       <div className="w-[60%] my-2  p-4 flex items-center justify-evenly ">
         <NavLink
           to={"/dashboard/home"}
@@ -72,8 +75,6 @@ const Dashboard = () => {
           <Route path="/newSong" element={<DashboardNewSong />} />
         </Routes>
       </div>
-
-      {alertType && <Alert type={alertType} />}
     </div>
   );
 };

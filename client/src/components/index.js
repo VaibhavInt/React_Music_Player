@@ -16,9 +16,6 @@ export { default as SongCard } from "./SongCard";
 
 export { default as FilterButtons } from "./FilterButtons";
 export { default as Filter } from "./Filter";
-export { default as Alert } from "./Alert";
-export { default as AlertError } from "./AlertError";
-export { default as AlertSuccess } from "./AlertSuccess";
 export { default as MusicPlayer } from "./MusicPlayer";
 export { default as Loader } from "./Loader";
 export { default as SearchBar } from "./SearchBar";

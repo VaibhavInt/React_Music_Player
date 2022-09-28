@@ -24,6 +24,9 @@ import {
   saveNewArtist,
   saveNewSong,
 } from "../api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { isMoment } from "moment";
 
 const DashboardNewSong = () => {
   const [songName, setSongName] = useState("");
@@ -85,18 +88,6 @@ const DashboardNewSong = () => {
     if (isImage) {
       setIsImageLoading(true);
       setIsAudioLoading(true);
-      // setIsArtistLoading(true);
-      // setIsAlbumLoading(true);
-      // dispatch({
-      //   type: actionType.SET_ALERT_TYPE,
-      //   alertType: "danger",
-      // });
-      // setInterval(() => {
-      //   dispatch({
-      //     type: actionType.SET_ALERT_TYPE,
-      //     alertType: null,
-      //   });
-      // }, 5000);
     }
     const deleteRef = ref(storage, url);
     deleteObject(deleteRef).then(() => {
@@ -104,29 +95,17 @@ const DashboardNewSong = () => {
       setAudioURL(null);
       setIsImageLoading(false);
       setIsAudioLoading(false);
-
-      // setArtistImageCover(null);
-      // setIsArtistLoading(false);
-
-      // setAlbumImageCover(null);
-      // setIsAlbumLoading(false);
-
-      // dispatch({
-      //   type: actionType.SET_ALERT_TYPE,
-      //   alertType: "success",
-      // });
-      // setInterval(() => {
-      //   dispatch({
-      //     type: actionType.SET_ALERT_TYPE,
-      //     alertType: null,
-      //   });
-      // }, 5000);
+      toast.success(`Successfully Removed ${isImage ? "Image" : "Audio"}`, {
+        position: toast.POSITION.TOP_CENTER,
+      });
     });
   };
 
   const saveSong = () => {
     if (!songImageCover || !audioURL) {
-      //throw alert
+      toast.warning("Please ! Provide Data to Save", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     } else {
       setIsImageLoading(true);
       setIsAudioLoading(true);
@@ -150,6 +129,10 @@ const DashboardNewSong = () => {
         });
       });
 
+      toast.success("Successfully Saved Song", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+
       setSongName(null);
       setIsAudioLoading(false);
       setIsImageLoading(false);
@@ -164,7 +147,9 @@ const DashboardNewSong = () => {
 
   const saveArtist = () => {
     if (!artistImageCover || !artistName || !twitter || !instagram) {
-      //throw alert
+      toast.warning("Please ! Provide Data to Save", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     } else {
       setIsArtistLoading(true);
       const data = {
@@ -181,6 +166,9 @@ const DashboardNewSong = () => {
           });
         });
       });
+      toast.success("Successfully Saved Artist Detail", {
+        position: toast.POSITION.TOP_CENTER,
+      });
       setIsArtistLoading(false);
       setArtistImageCover(null);
       setArtistName("");
@@ -191,10 +179,10 @@ const DashboardNewSong = () => {
 
   const saveAlbum = () => {
     if (!albumImageCover || !albumName) {
-      //throw alert
-      console.log("if");
+      toast.warning("Please ! Provide Data to Save", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     } else {
-      console.log("else");
       setIsAlbumLoading(true);
 
       const data = {
@@ -209,6 +197,9 @@ const DashboardNewSong = () => {
             allAlbums: data.albums,
           });
         });
+      });
+      toast.success("Successfully Saved Album Detail", {
+        position: toast.POSITION.TOP_CENTER,
       });
       setIsAlbumLoading(false);
       setAlbumImageCover(null);
@@ -530,6 +521,9 @@ export const FileUploader = ({
         //     alertType: null,
         //   });
         // }, 5000);
+        toast.error("Something went Wrong", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -546,6 +540,9 @@ export const FileUploader = ({
         //     alertType: null,
         //   });
         // }, 5000);
+        toast.success(`Saved ${isImage ? "Image" : "Audio"} in Storage`, {
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
     );
   };
