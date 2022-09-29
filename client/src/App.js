@@ -1,7 +1,14 @@
 import { getAuth } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { Home, Login, Dashboard, MusicPlayer, UserProfile } from "./components";
+import {
+  Home,
+  Login,
+  Dashboard,
+  MusicPlayer,
+  UserProfile,
+  Header,
+} from "./components";
 import { app } from "./config/firebase.config";
 import { AnimatePresence, motion } from "framer-motion";
 import { validateUser } from "./api";
@@ -45,6 +52,7 @@ const App = () => {
   return (
     <AnimatePresence exitBeforeEnter>
       <div className="h-auto min-w-[680px] bg-primary flex justify-center items-center">
+        <Header />
         <Routes>
           <Route path="/login" element={<Login setAuth={setAuth} />} />
           <Route path="/*" element={<Home />} />
