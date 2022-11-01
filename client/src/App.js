@@ -51,8 +51,7 @@ const App = () => {
 
   return (
     <AnimatePresence exitBeforeEnter>
-      <div className="h-auto min-w-[680px] bg-primary flex justify-center items-center">
-        <Header />
+      <div className="h-auto min-w-[680px] bg-primary flex flex-col justify-center items-center">
         <Routes>
           <Route path="/login" element={<Login setAuth={setAuth} />} />
           <Route path="/*" element={<Home />} />
